@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blood Donor Finder</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="bg-red-600 text-white shadow-lg">
+
+        <div class="max-w-6xl mx-auto px-4 py-6">
+
+            <div class="flex flex-col md:flex-row
+                        justify-between items-center gap-4">
+
+                <div>
+                    <h1 class="text-3xl font-bold">
+                        🩸 Blood Donor Finder
+                    </h1>
+
+                    <p class="text-red-100 mt-1">
+                        Find blood donors quickly in your city
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <p class="text-sm text-red-100">
+                        Available Donors
+                    </p>
+
+                    <p id="donorCount"
+                       class="text-3xl font-bold">
+                        0
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+
+
+        <!-- ================= SEARCH ================= -->
+
+        <section class="bg-white rounded-xl shadow-md p-6 mb-8">
+
+            <h2 class="text-xl font-bold text-gray-800 mb-5">
+                Find a Blood Donor
+            </h2>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <!-- Blood Group -->
+
+                <div>
+
+                    <label class="block text-sm font-medium
+                                  text-gray-700 mb-2">
+
+                        Blood Group
+
+                    </label>
+
+                    <select
+                        id="searchBloodGroup"
+                        onchange="searchDonors()"
+                        class="w-full border border-gray-300
+                               rounded-lg px-4 py-3
+                               focus:ring-2 focus:ring-red-500">
+
+                        <option value="">All Blood Groups</option>
+
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- City -->
+
+                <div>
+
+                    <label class="block text-sm font-medium
+                                  text-gray-700 mb-2">
+
+                        City
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="searchCity"
+                        oninput="searchDonors()"
+                        placeholder="Enter city"
+                        class="w-full border border-gray-300
+                               rounded-lg px-4 py-3
+                               focus:ring-2 focus:ring-red-500">
+
+                </div>
+
+
+                <!-- Reset -->
+
+                <div class="flex items-end">
+
+                    <button
+                        onclick="resetSearch()"
+                        class="w-full bg-gray-700
+                               hover:bg-gray-800
+                               text-white font-semibold
+                               py-3 rounded-lg">
+
+                        Reset Search
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ADD DONOR ================= -->
+
+        <section class="bg-white rounded-xl shadow-md p-6 mb-8">
+
+            <h2 class="text-xl font-bold text-gray-800 mb-5">
+                Become a Donor
+            </h2>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
+                <!-- Name -->
+
+                <div>
+
+                    <label class="block text-sm font-medium
+                                  text-gray-700 mb-2">
+
+                        Full Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="donorName"
+                        placeholder="Enter your name"
+                        class="w-full border border-gray-300
+                               rounded-lg px-4 py-3
+                               focus:ring-2 focus:ring-red-500">
+
+                </div>
+
+
+                <!-- Blood Group -->
+
+                <div>
+
+                    <label class="block text-sm font-medium
+                                  text-gray-700 mb-2">
+
+                        Blood Group
+
+                    </label>
+
+                    <select
+                        id="donorBloodGroup"
+                        class="w-full border border-gray-300
+                               rounded-lg px-4 py-3">
+
+                        <option value="">Select Blood Group</option>
+
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- City -->
+
+                <div>
+
+                    <label class="block text-sm font-medium
+                                  text-gray-700 mb-2">
+
+                        City
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="donorCity"
+                        placeholder="e.g. Nagpur"
+                        class="w-full border border-gray-300
+                               rounded-lg px-4 py-3">
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div>
+
+                    <label class="block text-sm font-medium
+                                  text-gray-700 mb-2">
+
+                        Contact Number
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="donorPhone"
+                        placeholder="10 digit mobile number"
+                        maxlength="10"
+                        class="w-full border border-gray-300
+                               rounded-lg px-4 py-3">
+
+                </div>
+
+            </div>
+
+
+            <!-- Error -->
+
+            <p id="errorMessage"
+               class="text-red-600 mt-4 hidden">
+            </p>
+
+
+            <!-- Add Button -->
+
+            <button
+                onclick="addDonor()"
+                class="mt-5 bg-red-600 hover:bg-red-700
+                       text-white font-semibold
+                       px-6 py-3 rounded-lg">
+
+                + Add Me as Donor
+
+            </button>
+
+        </section>
+
+
+
+        <!-- ================= DONOR LIST ================= -->
+
+        <section>
+
+            <div class="flex flex-col sm:flex-row
+                        justify-between items-start
+                        sm:items-center gap-3 mb-5">
+
+                <h2 class="text-2xl font-bold text-gray-800">
+                    Available Donors
+                </h2>
+
+                <span id="resultCount"
+                      class="text-gray-500">
+                    0 donors found
+                </span>
+
+            </div>
+
+
+            <!-- Donor Cards -->
+
+            <div
+                id="donorList"
+                class="grid grid-cols-1 md:grid-cols-2
+                       lg:grid-cols-3 gap-5">
+
+            </div>
+
+
+            <!-- No Donors -->
+
+            <div
+                id="noDonors"
+                class="hidden bg-white rounded-xl
+                       shadow-md p-10 text-center">
+
+                <div class="text-5xl mb-4">
+                    🩸
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700">
+                    No donors found
+                </h3>
+
+                <p class="text-gray-500 mt-2">
+                    Try another blood group or city.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="bg-gray-800 text-white text-center py-6 mt-10">
+
+        <p class="font-semibold">
+            Blood Donor Finder
+        </p>
+
+        <p class="text-gray-400 text-sm mt-1">
+            HTML • Tailwind CSS • JavaScript • Local Storage
+        </p>
+
+        <p class="text-gray-500 text-xs mt-3">
+            This is a frontend academic project.
+            For real emergencies, contact your local emergency
+            services or blood bank.
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
